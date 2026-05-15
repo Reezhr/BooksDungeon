@@ -1,0 +1,466 @@
+/* =========================================
+   VINTAGE AUTUMN COLOR PALETTE
+========================================= */
+
+:root{
+  --bd-primary: #5c3a21;     /* warm walnut brown */
+  --bd-accent: #c46b3c;      /* burnt autumn orange */
+  --bd-bg: #f4ede3;          /* aged parchment */
+  --bd-surface: #fffaf4;     /* warm cream */
+  --bd-border: #d7c8b7;      /* muted tan */
+  --bd-text: #3e2a1f;        /* dark espresso */
+  --bd-muted: #8b7765;       /* soft dusty brown */
+
+  --bd-hover:#8f4d28;
+  --bd-success:#7a8b52;      /* muted olive */
+  --bd-shadow:rgba(74,45,25,.12);
+}
+
+body{
+    background:var(--bd-bg);
+    color:var(--bd-text);
+    font-family:'DM Sans',sans-serif;
+}
+
+
+/* =========================================
+   TOP BAR
+========================================= */
+
+.top-bar{
+    background:#4b2f1b;
+    color:#dbc7b1;
+    font-size:.78rem;
+    overflow:hidden;
+}
+
+.top-bar a{
+    color:#c8a888;
+    text-decoration:none;
+}
+
+.top-bar a:hover{
+    color:white;
+}
+
+.top-bar-marquee{
+    overflow:hidden;
+}
+
+.top-bar-marquee-content{
+    display:inline-flex;
+    width:max-content;
+    animation:topBarScroll 18s linear infinite;
+}
+
+.top-bar-marquee-item{
+    display:inline-flex;
+    align-items:center;
+    white-space:nowrap;
+    flex-shrink:0;
+    margin-right:4rem;
+}
+
+@keyframes topBarScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-33.3333%); }
+}
+
+.top-bar a:hover{
+    color:white;
+}
+
+
+/* =========================================
+   NAVBAR
+========================================= */
+
+.main-nav{
+    background:var(--bd-surface);
+    border-bottom:1px solid var(--bd-border);
+}
+
+.main-nav .container-xl{
+    padding-left:0;
+}
+
+.navbar-brand{
+    font-family:'Playfair Display',serif;
+    font-size:1.5rem;
+    font-weight:700;
+    color:var(--bd-primary)!important;
+    text-decoration:none;
+    margin-right:auto;
+}
+
+.brand-icon{
+    color:var(--bd-accent);
+    font-size:1.6rem;
+}
+
+.nav-icon{
+    color:var(--bd-primary);
+    font-size:1.35rem;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.nav-icon:hover{
+    color:var(--bd-accent);
+}
+
+.cart-badge{
+    position:absolute;
+    top:-6px;
+    right:-8px;
+
+    width:16px;
+    height:16px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:var(--bd-accent);
+    color:white;
+
+    border-radius:50%;
+    font-size:.6rem;
+    font-weight:700;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.search-input{
+    border-color:var(--bd-border);
+    border-right:none;
+    border-radius:24px 0 0 24px;
+    font-size:.88rem;
+    background:#fff;
+}
+
+.search-input:focus{
+    border-color:var(--bd-accent);
+    box-shadow:none;
+}
+
+.search-btn{
+    background:var(--bd-accent);
+    border-color:var(--bd-accent);
+    border-radius:0 24px 24px 0;
+}
+
+.search-btn:hover{
+    background:var(--bd-hover);
+}
+
+
+/* =========================================
+   CATEGORY PILLS
+========================================= */
+
+.cat-bar{
+    background:var(--bd-surface);
+    border-bottom:1px solid var(--bd-border);
+
+    overflow-x:auto;
+    white-space:nowrap;
+    scrollbar-width:none;
+}
+
+.cat-bar::-webkit-scrollbar{
+    display:none;
+}
+
+.cat-pill{
+    padding:.3rem .9rem;
+    border-radius:20px;
+
+    border:1px solid var(--bd-border);
+
+    font-size:.8rem;
+    color:var(--bd-text);
+
+    transition:.3s;
+}
+
+.cat-pill:hover,
+.cat-pill.active{
+
+    background:var(--bd-primary);
+    color:white;
+    border-color:var(--bd-primary);
+
+}
+
+
+/* =========================================
+   HERO SECTION
+========================================= */
+
+.hero-carousel img{
+    width:100%;
+    height:380px;
+    object-fit:cover;
+}
+
+.carousel-caption-custom{
+    position:absolute;
+    bottom:60px;
+    left:60px;
+    color:white;
+}
+
+.carousel-caption-custom h5{
+    font-family:'Playfair Display',serif;
+    font-size:2rem;
+    text-shadow:0 3px 12px rgba(0,0,0,.4);
+}
+
+.carousel-caption-custom .btn{
+    background:var(--bd-accent);
+    border:none;
+    border-radius:24px;
+}
+
+.carousel-caption-custom .btn:hover{
+    background:var(--bd-hover);
+}
+
+
+/* =========================================
+   SECTION TITLES
+========================================= */
+
+.section-heading{
+    font-family:'Playfair Display',serif;
+    font-size:1.45rem;
+    color:var(--bd-primary);
+}
+
+.view-all{
+    color:var(--bd-accent);
+    font-weight:600;
+    text-decoration:none;
+}
+
+.view-all:hover{
+    text-decoration:underline;
+}
+
+
+/* =========================================
+   FEATURED BOOK CARD
+========================================= */
+
+.feat-card{
+    background:var(--bd-surface);
+
+    border:1px solid var(--bd-border);
+    border-radius:24px;
+
+    display:flex;
+    gap:1rem;
+    padding:1rem;
+
+    transition: transform .3s ease, box-shadow .3s ease;
+    transform: translateZ(0);
+    position: relative;
+}
+
+.feat-card:hover{
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:0 22px 48px rgba(63, 35, 18, 0.22);
+    z-index:2;
+}
+
+.card.text-bg-dark.overflow-hidden,
+.card.text-bg-dark.overflow-hidden .card-img {
+    border-radius:24px;
+}
+
+.featured-img-card {
+    transition: transform .3s ease, box-shadow .3s ease;
+    transform: translateZ(0);
+    position: relative;
+}
+
+.featured-img-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 24px 46px rgba(0, 0, 0, 0.22);
+    z-index: 2;
+}
+
+.feat-title{
+    color:var(--bd-primary);
+    font-weight:700;
+}
+
+.feat-desc{
+    color:var(--bd-muted);
+}
+
+.feat-price{
+    color:var(--bd-primary);
+    font-size:1.1rem;
+    font-weight:700;
+}
+
+.badge-save{
+    background:#eef1e3;
+    color:var(--bd-success);
+}
+
+
+/* =========================================
+   BOOK CARDS
+========================================= */
+
+.book-card{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:100%;
+
+    background:var(--bd-surface);
+    border:1px solid var(--bd-border);
+    border-radius:14px;
+    overflow:hidden;
+    transition:.3s;
+}
+
+.book-card:hover{
+    transform:translateY(-4px);
+    box-shadow:
+    0 10px 30px var(--bd-shadow);
+}
+
+.book-card .p-3{
+    display:flex;
+    flex-direction:column;
+    flex:1;
+}
+
+.book-card .p-3 form.addtocart,
+.book-card .p-3 .add-cart-btn {
+    margin-top:auto;
+}
+
+.book-img-wrap{
+    background:#efe4d7;
+    padding:1rem 1rem 0;
+}
+
+.book-img-wrap img{
+    height:160px;
+
+    border-radius:6px;
+
+    box-shadow:
+    4px 5px 16px rgba(0,0,0,.15);
+}
+
+.book-title{
+    color:var(--bd-primary);
+    font-weight:700;
+}
+
+.book-author{
+    color:var(--bd-muted);
+}
+
+.price-now{
+    color:var(--bd-primary);
+    font-weight:700;
+}
+
+.price-old{
+    color:var(--bd-muted);
+    text-decoration:line-through;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.add-cart-btn{
+
+    width:100%;
+    padding:.45rem;
+
+    border-radius:20px;
+
+    border:1.5px solid var(--bd-primary);
+
+    background:transparent;
+    color:var(--bd-primary);
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.add-cart-btn:hover{
+
+    background:var(--bd-primary);
+    color:white;
+
+}
+
+
+/* =========================================
+   PROMO SECTION
+========================================= */
+
+.promo-banner{
+
+background:
+linear-gradient(
+135deg,
+#5c3a21,
+#8f4d28
+);
+
+border-radius:16px;
+color:white;
+}
+
+.promo-btn{
+    background:var(--bd-accent);
+    border:none;
+    border-radius:24px;
+}
+
+.promo-btn:hover{
+    background:var(--bd-hover);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer{
+    background:#382214;
+    color:#c3ad96;
+}
+
+footer h6{
+    color:white;
+}
+
+footer a{
+    color:#c3ad96;
+}
+
+footer a:hover{
+    color:white;
+}
+
+.footer-bottom{
+    border-top:1px solid #5d4636;
+}
