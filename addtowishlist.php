@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
         echo json_encode(['status' => 'login_required']);
         exit();
     }
-    header("Location: booklogin.php");
+    header("Location: booklogin.php?message=login_first");
     exit();
 }
 
