@@ -159,5 +159,82 @@ $cart_count = $crow['total'] ?? 0;
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const cartBadge = document.querySelector('.cart-badge');
+  const itemsContainer = document.querySelector('.col-lg-8');
+
+  function showEmptyState() {
+    itemsContainer.innerHTML = `
+      <div class="empty-state">
+        <i class="bi bi-heart d-block mb-3"></i>
+        <h5 class="text-muted">Your wishlist is empty</h5>
+        <p class="text-muted" style="font-size:.9rem;">Browse our collection and save books you love.</p>
+        <a href="index.php" class="btn mt-3" style="background:#722304;color:#fff;border-radius:8px;padding:.6rem 1.8rem;">Browse Books</a>
+      </div>
+    `;
+  }
+
+  // Handle Move to Cart forms
+  document.querySelectorAll('form[action="addtocart.php"]').forEach(function(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const formData = new FormData(form);
+      // indicate wishlist removal after adding to cart
+      formData.append('remove_wishlist', '1');
+
+      fetch('addtocart.php', {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: formData
+      }).then(r => r.json()).then(data => {
+        if (!data) return;
+        if (data.status === 'login_required') {
+          window.location = 'booklogin.php';
+          return;
+        }
+        if (data.status === 'ok') {
+          // update cart badge
+          if (cartBadge && typeof data.cart_count !== 'undefined') {
+            cartBadge.textContent = data.cart_count;
+          }
+          // remove the wishlist item from DOM
+          const item = form.closest('.wishlist-item');
+          if (item) item.remove();
+          // if no items remain, show empty state
+          if (!document.querySelector('.wishlist-item')) {
+            showEmptyState();
+          }
+        }
+      }).catch(err => {
+        console.error('Move to cart failed', err);
+      });
+    });
+  });
+
+  // Handle Remove links
+  document.querySelectorAll('a[href^="removewishlist.php"]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      e.preventDefault();
+      const url = new URL(link.href, window.location.href);
+      fetch(url.href, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+        .then(r => r.json()).then(data => {
+          if (!data) return;
+          if (data.status === 'login_required') {
+            window.location = 'booklogin.php';
+            return;
+          }
+          if (data.status === 'ok') {
+            const item = link.closest('.wishlist-item');
+            if (item) item.remove();
+            if (!document.querySelector('.wishlist-item')) {
+              showEmptyState();
+            }
+          }
+        }).catch(err => console.error('Remove wishlist failed', err));
+    });
+  });
+});
+</script>
 </body>
 </html>
