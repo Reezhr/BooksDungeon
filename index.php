@@ -364,7 +364,7 @@ if (isset($_SESSION['user_id'])) {
           <input id="wishlist-book-id-3" type="hidden" name="book_id" value="3">
           <button id="wishlist-btn-3" type="submit" class="wishlist-btn <?php echo in_array(3,$wishlisted)?'active':''; ?>">
             <i class="bi <?php echo in_array(3,$wishlisted)?'bi-heart-fill':'bi-heart'; ?>"></i>
-          </button>
+          </button> qw
         </form>
         <div class="book-img-wrap">
           <img src="https://covers.openlibrary.org/b/isbn/9780062315007-M.jpg"
@@ -672,14 +672,14 @@ if (isset($_SESSION['user_id'])) {
   <div class="bg-white border rounded-3 p-4 p-md-5 mb-2 text-center" style="border-color: var(--bd-border) !important;">
     <h4 class="section-heading mb-2">Stay in the Loop</h4>
     <p class="text-muted mb-4" style="font-size:.9rem;">Get new arrivals, exclusive deals and reading picks delivered to your inbox.</p>
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-6">
-        <div class="input-group">
-          <input id="newsletter-email" name="newsletter_email" type="email" class="form-control" placeholder="Enter your email address" autocomplete="email" style="border-radius:24px 0 0 24px; border-color:var(--bd-border);">
-          <button class="btn text-white px-4" style="background:var(--bd-accent);border-color:var(--bd-accent);border-radius:0 24px 24px 0;">Subscribe</button>
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+          <form id="newsletter-form" class="input-group" action="#" method="POST" onsubmit="return false;">
+            <input id="newsletter-email" name="newsletter_email" type="email" class="form-control" placeholder="Enter your email address" autocomplete="email" style="border-radius:24px 0 0 24px; border-color:var(--bd-border);">
+            <button id="newsletter-btn" type="submit" class="btn text-white px-4" style="background:var(--bd-accent);border-color:var(--bd-accent);border-radius:0 24px 24px 0;">Subscribe</button>
+          </form>
         </div>
       </div>
-    </div>
   </div>
 
 </div>
@@ -777,8 +777,8 @@ document.querySelectorAll(".wishlist-form").forEach(form => {
     })
     .then(data => {
       if (data.status === "login_required") {
-        // Not logged in — send to login page
-        window.location.href = "booklogin.php";
+        // Not logged in — send to login page with message
+        window.location.href = "booklogin.php?message=login_first";
         return;
       }
 
@@ -853,7 +853,7 @@ document.querySelectorAll("form[action='addtocart.php']").forEach(form => {
     })
     .then(data => {
       if (data.status === "login_required") {
-        window.location.href = "booklogin.php";
+        window.location.href = "booklogin.php?message=login_first";
         return;
       }
 
@@ -920,6 +920,45 @@ function showToast(message) {
     setTimeout(() => toast.remove(), 300);
   }, 2200);
 }
+// ── NEWSLETTER — simple client-side subscribe feedback ─────────────────
+(function(){
+  const form = document.getElementById('newsletter-form');
+  const input = document.getElementById('newsletter-email');
+  const btn = document.getElementById('newsletter-btn');
+  if (!form || !input || !btn) return;
+
+  function validEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = (input.value || '').trim();
+    if (!email) {
+      showToast('Please enter your email address.');
+      input.focus();
+      return;
+    }
+    if (!validEmail(email)) {
+      showToast('Please enter a valid email address.');
+      input.focus();
+      return;
+    }
+
+    // Optimistic UI: show spinner and disable
+    const origHtml = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>Subscribing';
+
+    // Simulate a short delay (or replace with real fetch to server)
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = origHtml;
+      input.value = '';
+      showToast('Thank you for subscribing!');
+    }, 800);
+  });
+})();
 </script>
 </body>
 </html>
